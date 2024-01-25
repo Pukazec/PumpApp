@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">PumpApp</string>
+    <string name="rider">Rider</string>
+    <string name="pumptracks_application">Pumptrack finder application</string>
+    <string name="alpha">alpha</string>
+    <string name="movies">Movies</string>
+    <string name="map">Map</string>
+    <string name="about">About</string>
+    <string name="authentication">Authentication</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="person">Person</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="unable_to_login">Unable to login</string>
+    <string name="unable_to_register">Unable to register</string>
+    <string name="close">Close</string>
+    <string name="like">Like</string>
+    <string name="delete">Delete</string>
+</resources>
