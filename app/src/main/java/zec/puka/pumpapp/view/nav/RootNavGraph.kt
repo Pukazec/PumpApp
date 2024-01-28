@@ -7,7 +7,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.paging.ExperimentalPagingApi
-import zec.puka.pumpapp.MainActivity
 import zec.puka.pumpapp.view.MainScreen
 import zec.puka.pumpapp.viewmodel.AuthenticationViewModel
 
@@ -19,7 +18,7 @@ fun RootNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         route = Graph.ROOT,
-        startDestination = Graph.MAIN) {
+        startDestination = Graph.AUTH) {
 
         authNavGraph(
             navController = navController,

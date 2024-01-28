@@ -6,16 +6,16 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
-@Entity(tableName = "pump_table")
+@Entity(tableName = "cat_table")
 @Serializable
-data class Pump(
+data class Cat(
     @PrimaryKey(autoGenerate = true)
     @Transient
-    val pumpId: Int = 0,
+    val catId: Int = 0,
     val id: Int,
     val title: String,
     val overview: String,
-    @SerialName("poster_path")
+    @SerialName("url")
     val poster: String,
     @SerialName("release_date")
     val date: String,

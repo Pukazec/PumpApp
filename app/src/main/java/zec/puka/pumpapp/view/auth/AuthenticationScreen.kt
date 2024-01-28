@@ -1,5 +1,7 @@
 package zec.puka.pumpapp.view.auth
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Spring
@@ -21,6 +23,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,8 +44,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import zec.puka.pumpapp.R
 import zec.puka.pumpapp.view.common.AnimatedIconButton
+import zec.puka.pumpapp.view.nav.Graph
+import zec.puka.pumpapp.viewmodel.AuthenticationViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,8 +61,12 @@ fun AuthenticationScreen(
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isLogin: Boolean = true
+    isLogin: Boolean = true,
+    authenticationViewModel: AuthenticationViewModel,
+    navController: NavHostController,
 ) {
+
+    val localContext = LocalContext.current
 
     val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
@@ -65,6 +76,28 @@ fun AuthenticationScreen(
             targetState = true
         }
     }
+
+    val activityResultLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        authenticationViewModel.handleGoogleSignInResult(
+            data = result.data,
+            onSuccess = {
+                navController.popBackStack()
+                // register and enter
+                navController.navigate(route = Graph.MAIN) },
+            onFail = {
+                navController.popBackStack()
+                // register and enter
+                navController.navigate(route = Graph.MAIN)
+//                Toast.makeText(
+//                context,
+//                context.getString(R.string.unable_to_register), Toast.LENGTH_SHORT
+//            ).show()
+            },
+        )
+    }
+
     AnimatedVisibility(
         visibleState = visibleState,
         enter = fadeIn() + slideInHorizontally(
@@ -172,6 +205,12 @@ fun AuthenticationScreen(
                             )
                         }
                     )
+
+                    Button(
+                        modifier = modifier.align(Alignment.End),
+                        onClick = { authenticationViewModel.googleSignIn(activityResultLauncher, localContext) },) {
+                        Text("Sign in with Google")
+                    }
                 }
             }
         }

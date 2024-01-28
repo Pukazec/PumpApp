@@ -7,10 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import zec.puka.pumpapp.db.PumpDatabase
+import zec.puka.pumpapp.db.CatDatabase
 import javax.inject.Singleton
 
-private const val PUMP_DATABASE = "pump_database"
+private const val CAT_DATABASE = "cat_database"
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
@@ -19,11 +19,11 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) : PumpDatabase {
+    ) : CatDatabase {
         return Room.databaseBuilder(
             context,
-            PumpDatabase::class.java,
-            PUMP_DATABASE
+            CatDatabase::class.java,
+            CAT_DATABASE
         ).build()
     }
 }

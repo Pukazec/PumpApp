@@ -10,23 +10,23 @@ import zec.puka.pumpapp.view.BottomNavScreen
 import zec.puka.pumpapp.view.main.AboutScreen
 import zec.puka.pumpapp.view.main.MapScreen
 import zec.puka.pumpapp.view.main.PumpScreen
-import zec.puka.pumpapp.view.main.PumpState
+import zec.puka.pumpapp.view.main.CatState
 import zec.puka.pumpapp.viewmodel.MapViewModel
-import zec.puka.pumpapp.viewmodel.PumpViewModel
+import zec.puka.pumpapp.viewmodel.CatViewModel
 
 @ExperimentalPagingApi
 @Composable
 fun BottomNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = BottomNavScreen.Movies.route
+        startDestination = BottomNavScreen.Cats.route
     ) {
-        composable(route = BottomNavScreen.Movies.route) {
-            val pumpViewModel = hiltViewModel<PumpViewModel>()
+        composable(route = BottomNavScreen.Cats.route) {
+            val catViewModel = hiltViewModel<CatViewModel>()
             PumpScreen(
-                pumpsState = PumpState(pumpViewModel),
-                onUpdate = { pumpViewModel.update(it.copy(liked = !it.liked)) },
-                onDelete = { pumpViewModel.delete(it) }
+                catState = CatState(catViewModel),
+                onUpdate = { catViewModel.update(it.copy(liked = !it.liked)) },
+                onDelete = { catViewModel.delete(it) }
             )
         }
         composable(route = BottomNavScreen.Map.route) {

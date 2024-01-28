@@ -21,8 +21,8 @@ object AuthenticationRepository {
                 if (it.isSuccessful) {
                     onSuccess()
                 } else {
-                    //onFail()
-                    onSuccess()
+                    onFail()
+                    //onSuccess()
                     Log.d("AUTH", "User not logged in")
                 }
             }
@@ -38,8 +38,8 @@ object AuthenticationRepository {
                 if (it.isSuccessful) {
                     onSuccess()
                 } else {
-                    //onFail()
-                    onSuccess()
+                    onFail()
+                    //onSuccess()
                     Log.d("AUTH", "User not registered")
                 }
             }

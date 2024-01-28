@@ -6,26 +6,26 @@ import androidx.paging.ExperimentalPagingApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import zec.puka.pumpapp.model.Pump
-import zec.puka.pumpapp.repository.PumpRepository
+import zec.puka.pumpapp.model.Cat
+import zec.puka.pumpapp.repository.CatRepository
 import javax.inject.Inject
 
 @ExperimentalPagingApi
 @HiltViewModel
-class PumpViewModel @Inject constructor(
-    private val repository: PumpRepository
+class CatViewModel @Inject constructor(
+    private val repository: CatRepository
 ) : ViewModel(){
-    val pumps = repository.getPumps()
+    val cats = repository.getCats()
 
-    fun update(pump: Pump) {
+    fun update(cat: Cat) {
         viewModelScope.launch (Dispatchers.IO){
-            repository.update(pump)
+            repository.update(cat)
         }
     }
 
-    fun delete(pump: Pump) {
+    fun delete(cat: Cat) {
         viewModelScope.launch (Dispatchers.IO){
-            repository.delete(pump)
+            repository.delete(cat)
         }
     }
 }

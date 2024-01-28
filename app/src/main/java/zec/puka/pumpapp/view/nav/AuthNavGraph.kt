@@ -2,6 +2,8 @@ package zec.puka.pumpapp.view.nav
 
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -48,7 +50,9 @@ fun NavGraphBuilder.authNavGraph(
                 },
                 authenticationState = authenticationViewModel.authenticationState.value,
                 onEmailChanged = { authenticationViewModel.onEmailChanged(it) },
-                onPasswordChanged = { authenticationViewModel.onPasswordChanged(it) }
+                onPasswordChanged = { authenticationViewModel.onPasswordChanged(it) },
+                authenticationViewModel =  authenticationViewModel ,
+                navController = navController,
             )
         }
         composable(route = AuthNavScreen.Register.route) {
@@ -78,9 +82,20 @@ fun NavGraphBuilder.authNavGraph(
                 },
                 authenticationState = authenticationViewModel.authenticationState.value,
                 onEmailChanged = { authenticationViewModel.onEmailChanged(it) },
-                onPasswordChanged = { authenticationViewModel.onPasswordChanged(it) }
-
+                onPasswordChanged = { authenticationViewModel.onPasswordChanged(it) },
+                authenticationViewModel =  authenticationViewModel ,
+                navController = navController,
             )
+
+            val activityResultLauncher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartActivityForResult()
+            ) { result ->
+                authenticationViewModel.handleGoogleSignInResult(
+                    data = result.data,
+                    onSuccess = { /* Handle success */ },
+                    onFail = { /* Handle failure */ }
+                )
+            }
         }
     }
 }

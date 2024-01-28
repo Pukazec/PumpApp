@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PageResult(
     @SerialName("results")
-    val pumps: List<Pump>
+    val cats: List<Cat>
 )

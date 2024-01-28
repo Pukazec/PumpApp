@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -42,8 +41,7 @@ import coil.request.ImageRequest
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 import zec.puka.pumpapp.R
-import zec.puka.pumpapp.di.PUMP_IMAGES_API_URL
-import zec.puka.pumpapp.model.Pump
+import zec.puka.pumpapp.model.Cat
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,11 +50,11 @@ import zec.puka.pumpapp.model.Pump
 @Composable
 fun PumpScreen(
     modifier: Modifier = Modifier,
-    pumpsState: PumpState,
-    onUpdate: (Pump) -> Unit,
-    onDelete: (Pump) -> Unit
+    catState: CatState,
+    onUpdate: (Cat) -> Unit,
+    onDelete: (Cat) -> Unit
 ) {
-    val pumps = pumpsState.pumps.collectAsLazyPagingItems()
+    val cats = catState.cats.collectAsLazyPagingItems()
 
     Scaffold {
         LazyColumn(
@@ -64,13 +62,13 @@ fun PumpScreen(
             contentPadding = PaddingValues(all = 12.dp)
         ) {
             items(
-                items = pumps,
-                key = { pump -> pump.id }
-            ) { pump ->
-                pump?.let {
-                    PumpItem(
+                items = cats,
+                key = { cat -> cat.id }
+            ) { cat ->
+                cat?.let {
+                    CatItem(
                         modifier = modifier,
-                        pump = it,
+                        cat = it,
                         onUpdate = onUpdate,
                         onDelete = onDelete
                     )
@@ -81,14 +79,14 @@ fun PumpScreen(
 }
 
 @Composable
-fun PumpItem(
+fun CatItem(
     modifier: Modifier,
-    pump: Pump,
-    onUpdate: (Pump) -> Unit,
-    onDelete: (Pump) -> Unit
+    cat: Cat,
+    onUpdate: (Cat) -> Unit,
+    onDelete: (Cat) -> Unit
 ) {
     val updateAction = SwipeAction(
-        onSwipe = { onUpdate(pump) },
+        onSwipe = { onUpdate(cat) },
         background = MaterialTheme.colorScheme.secondary,
         icon = {
             Icon(
@@ -101,7 +99,7 @@ fun PumpItem(
     )
 
     val deleteAction = SwipeAction(
-        onSwipe = { onDelete(pump) },
+        onSwipe = { onDelete(cat) },
         background = MaterialTheme.colorScheme.tertiary,
         icon = {
             Icon(
@@ -127,10 +125,10 @@ fun PumpItem(
                 Box {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data("$PUMP_IMAGES_API_URL${pump.poster}")
+                            .data(cat.poster)
                             .crossfade(enable = true)
                             .build(),
-                        contentDescription = pump.title,
+                        contentDescription = cat.title,
                         placeholder = painterResource(id = R.drawable.cmatpt),
                         contentScale = ContentScale.FillBounds,
                         modifier = modifier
@@ -142,7 +140,7 @@ fun PumpItem(
                             .size(size = 100.dp)
                             .align(Alignment.BottomEnd),
                         tint = MaterialTheme.colorScheme.tertiary,
-                        imageVector = if(pump.liked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                        imageVector = if(cat.liked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = stringResource(id = R.string.like)
                     )
                 }
@@ -150,9 +148,9 @@ fun PumpItem(
                     modifier = modifier.padding(top = 6.dp),
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.tertiary,
-                    text = "${pump.title} (${pump.date})"
+                    text = "${cat.title} (${cat.date})"
                 )
-                Text(text = pump.overview)
+                Text(text = cat.overview)
             }
         }
     }

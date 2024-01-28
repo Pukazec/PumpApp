@@ -11,15 +11,14 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import zec.puka.pumpapp.api.PointsApi
-import zec.puka.pumpapp.api.PumpApi
+import zec.puka.pumpapp.api.CatApi
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
-private const val POINTS_API_URL = "https://movie-646f7-default-rtdb.firebaseio.com/"
+private const val POINTS_API_URL = "https://pukazecpump-default-rtdb.europe-west1.firebasedatabase.app"
 
-private const val PUMP_API_URL = "https://api.themoviedb.org/3/movie/"
-const val PUMP_IMAGES_API_URL = "https://image.tmdb.org/t/p/original"
+private const val PUMP_API_URL = "https://api.thecatapi.com/v1/images/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -53,7 +52,7 @@ object NetworkModule {
     @Provides
     @Singleton
     @ExperimentalSerializationApi
-    fun providePumpApi(okHttpClient: OkHttpClient) : PumpApi {
+    fun provideCatApi(okHttpClient: OkHttpClient) : CatApi {
         val json = Json {
             ignoreUnknownKeys = true
         }
@@ -63,7 +62,7 @@ object NetworkModule {
             .addConverterFactory(json
                 .asConverterFactory("application/json".toMediaType()))
             .build()
-            .create(PumpApi::class.java)
+            .create(CatApi::class.java)
     }
 
 }

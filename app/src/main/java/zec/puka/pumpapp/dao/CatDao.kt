@@ -7,22 +7,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import zec.puka.pumpapp.model.Pump
+import zec.puka.pumpapp.model.Cat
 
 @Dao
-interface PumpDao {
-    @Query("SELECT * FROM pump_table")
-    fun getPumps() : PagingSource<Int, Pump>
+interface CatDao {
+    @Query("SELECT * FROM cat_table")
+    fun getCats() : PagingSource<Int, Cat>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addPump(pumps: List<Pump>)
+    fun addCat(cats: List<Cat>)
 
-    @Query("DELETE FROM pump_table")
-    fun deletePump()
+    @Query("DELETE FROM cat_table")
+    fun deleteCat()
 
     @Update
-    fun update(pump: Pump)
+    fun update(cat: Cat)
 
     @Delete
-    fun delete(pump: Pump)
+    fun delete(cat: Cat)
 }

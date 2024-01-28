@@ -2,8 +2,8 @@ package zec.puka.pumpapp.view
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Pets
 import androidx.compose.ui.graphics.vector.ImageVector
 import zec.puka.pumpapp.R
 
@@ -12,10 +12,10 @@ sealed class BottomNavScreen ( // discuss sealed class
     val title: Int, // no primitives - discuss, resources
     val icon: ImageVector
 ) { // now Tools -> Kotlin -> Show Kotlin Bytecode -> it is abstract class with private constructor, so only inner classes can extend! WOW TRICK!!!
-    object Movies: BottomNavScreen(
-        route = "movies",
-        title = R.string.movies,
-        icon = Icons.Default.Movie
+    object Cats: BottomNavScreen(
+        route = "cats",
+        title = R.string.cats,
+        icon = Icons.Default.Pets
     )
     object Map: BottomNavScreen(
         route = "map",
