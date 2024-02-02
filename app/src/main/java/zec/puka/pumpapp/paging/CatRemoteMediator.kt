@@ -55,7 +55,7 @@ class CatRemoteMediator (
             }
 
             val response = catApi.getCats(page = currentPage)
-            val endOfPaginationReached = response.cats.isEmpty()
+            val endOfPaginationReached = response.isEmpty()
 
             val prevPage = if(currentPage == 1) null else currentPage - 1
             val nextPage = if(endOfPaginationReached) null else currentPage + 1
@@ -66,15 +66,15 @@ class CatRemoteMediator (
                     catRemoteKeysDao.deleteCatRemoteKeys()
                 }
 
-                val catRemoteKeys = response.cats.map { pump ->
+                val catRemoteKeys = response.map { cat ->
                     CatRemoteKeys(
-                        id = pump.id,
+                        id = cat.catId,
                         prevPage = prevPage,
                         nextPage = nextPage
                     )
                 }
                 catRemoteKeysDao.addCatRemoteKeys(catRemoteKeys = catRemoteKeys)
-                catDao.addCat(cats = response.cats)
+                catDao.addCat(cats = response)
             }
 
             MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)

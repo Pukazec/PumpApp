@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import zec.puka.pumpapp.api.PointsApi
 import zec.puka.pumpapp.api.CatApi
 import java.util.concurrent.TimeUnit
@@ -59,8 +60,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(PUMP_API_URL)
             .client(okHttpClient)
-            .addConverterFactory(json
-                .asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CatApi::class.java)
     }

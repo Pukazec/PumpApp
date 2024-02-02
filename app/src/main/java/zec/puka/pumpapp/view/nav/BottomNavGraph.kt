@@ -9,7 +9,7 @@ import androidx.paging.ExperimentalPagingApi
 import zec.puka.pumpapp.view.BottomNavScreen
 import zec.puka.pumpapp.view.main.AboutScreen
 import zec.puka.pumpapp.view.main.MapScreen
-import zec.puka.pumpapp.view.main.PumpScreen
+import zec.puka.pumpapp.view.main.CatScreen
 import zec.puka.pumpapp.view.main.CatState
 import zec.puka.pumpapp.viewmodel.MapViewModel
 import zec.puka.pumpapp.viewmodel.CatViewModel
@@ -23,7 +23,7 @@ fun BottomNavGraph(navController: NavHostController) {
     ) {
         composable(route = BottomNavScreen.Cats.route) {
             val catViewModel = hiltViewModel<CatViewModel>()
-            PumpScreen(
+            CatScreen(
                 catState = CatState(catViewModel),
                 onUpdate = { catViewModel.update(it.copy(liked = !it.liked)) },
                 onDelete = { catViewModel.delete(it) }
