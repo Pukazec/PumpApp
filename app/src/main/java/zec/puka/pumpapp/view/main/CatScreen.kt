@@ -48,7 +48,7 @@ import zec.puka.pumpapp.model.Cat
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalPagingApi
 @Composable
-fun PumpScreen(
+fun CatScreen(
     modifier: Modifier = Modifier,
     catState: CatState,
     onUpdate: (Cat) -> Unit,
@@ -125,10 +125,10 @@ fun CatItem(
                 Box {
                     AsyncImage(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(cat.poster)
+                            .data(cat.url)
                             .crossfade(enable = true)
                             .build(),
-                        contentDescription = cat.title,
+                        contentDescription = cat.id,
                         placeholder = painterResource(id = R.drawable.cmatpt),
                         contentScale = ContentScale.FillBounds,
                         modifier = modifier
@@ -148,9 +148,8 @@ fun CatItem(
                     modifier = modifier.padding(top = 6.dp),
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.tertiary,
-                    text = "${cat.title} (${cat.date})"
+                    text = cat.id
                 )
-                Text(text = cat.overview)
             }
         }
     }
