@@ -78,12 +78,8 @@ class AuthenticationViewModel : ViewModel() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val account = task.getResult(ApiException::class.java)
 
-            // Use account information to log in or register in your backend
-            // ...
-
             onSuccess()
         } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
             onFail()
         }
     }

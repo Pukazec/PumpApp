@@ -22,6 +22,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Login
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -84,13 +85,12 @@ fun AuthenticationScreen(
             data = result.data,
             onSuccess = {
                 navController.popBackStack()
-                // register and enter
                 navController.navigate(route = Graph.MAIN) },
             onFail = {
                 navController.popBackStack()
-                // register and enter
                 navController.navigate(route = Graph.MAIN)
-//                Toast.makeText(
+
+//              Toast.makeText(
 //                context,
 //                context.getString(R.string.unable_to_register), Toast.LENGTH_SHORT
 //            ).show()
@@ -207,9 +207,9 @@ fun AuthenticationScreen(
                     )
 
                     Button(
-                        modifier = modifier.align(Alignment.End),
+                        modifier = modifier.align(Alignment.End).padding(0.dp),
                         onClick = { authenticationViewModel.googleSignIn(activityResultLauncher, localContext) },) {
-                        Text("Sign in with Google")
+                        Image(painter = painterResource(R.drawable.google), contentDescription = "Sign in with Google")
                     }
                 }
             }
